@@ -68,3 +68,15 @@ SOURCE order_db/sample-data/order_items_data.sql;
 -- ==========================================================
 -- DATABASE SETUP COMPLETED
 -- ==========================================================
+
+-- ==========================================================
+-- PAYMENT SERVICE
+-- ==========================================================
+
+SOURCE payment_db/schemas/payment_db.sql;
+
+USE payment_db;
+
+SOURCE payment_db/tables/payments.sql;
+
+SOURCE payment_db/sample-data/payments_data.sql;
