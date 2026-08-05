@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS order_db;
+
+USE order_db;

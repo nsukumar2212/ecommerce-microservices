@@ -40,6 +40,6 @@ WHERE cart_id = 1;
 -- Query 6 : Products with quantity greater than 1
 -- ==========================================
 
-SELECT *
+User functions longSELECT *
 FROM cart_items
 WHERE quantity > 1;
