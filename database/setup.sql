@@ -80,3 +80,15 @@ USE payment_db;
 SOURCE payment_db/tables/payments.sql;
 
 SOURCE payment_db/sample-data/payments_data.sql;
+
+-- ==========================================================
+-- NOTIFICATION SERVICE
+-- ==========================================================
+
+SOURCE notification_db/schemas/notification_db.sql;
+
+USE notification_db;
+
+SOURCE notification_db/tables/notifications.sql;
+
+SOURCE notification_db/sample-data/notifications_data.sql;
