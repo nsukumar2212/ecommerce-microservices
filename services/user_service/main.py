@@ -1,21 +1,12 @@
 from fastapi import FastAPI
 
-from services.user_service.database import Base, engine
+from services.user_service.routers.auth_router import router as auth_router
 
-# Import models
-from services.user_service.models import Role, User, Address
+app = FastAPI(title="User Service")
 
-Base.metadata.create_all(bind=engine)
-
-app = FastAPI(
-    title="User Service",
-    version="1.0.0"
-)
+app.include_router(auth_router)
 
 
 @app.get("/")
 def home():
-    return {
-        "service": "User Service",
-        "status": "Running"
-    }
+    return {"message": "User Service Running"}
