@@ -6,6 +6,11 @@ from services.user_service.schemas.user_schema import (
     UserResponse,
     UserUpdate
 )
+from services.user_service.schemas.user_schema import (
+    UserResponse,
+    UserUpdate,
+    ChangePassword
+)
 from services.user_service.services.user_service import UserService
 from shared.auth.auth_dependency import get_current_user
 
@@ -40,3 +45,18 @@ def update_profile(
         payload,
         request
     )
+@router.put("/change-password")
+def change_password(
+    request: ChangePassword,
+    payload=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    UserService.change_password(
+        db,
+        payload,
+        request
+    )
+
+    return {
+        "message": "Password changed successfully"
+    }

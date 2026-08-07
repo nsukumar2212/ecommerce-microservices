@@ -117,3 +117,33 @@ class UserService:
         user.phone = request.phone
 
         return UserCRUD.update_user(db, user)
+    @staticmethod
+    def change_password(db, payload, request):
+
+        # Get logged-in user's email from JWT
+        email = payload.get("sub")
+
+        # Find user
+        user = UserCRUD.get_user_by_email(db, email)
+
+        if not user:
+            raise HTTPException(
+                status_code=404,
+                detail="User not found"
+            )
+
+        # Verify current password
+        if not verify_password(
+            request.current_password,
+            user.password
+        ):
+            raise HTTPException(
+                status_code=400,
+                detail="Current password is incorrect"
+            )
+
+        # Hash new password
+        user.password = hash_password(request.new_password)
+
+        # Save changes
+        return UserCRUD.update_user(db, user)
