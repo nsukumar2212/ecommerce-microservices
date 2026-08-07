@@ -13,6 +13,10 @@ class AddressCreate(AddressBase):
     pass
 
 
+class AddressUpdate(AddressBase):
+    pass
+
+
 class AddressResponse(AddressBase):
     address_id: int
     user_id: int

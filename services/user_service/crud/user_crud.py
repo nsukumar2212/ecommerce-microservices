@@ -30,3 +30,20 @@ class UserCRUD:
         db.refresh(user)
 
         return user
+    @staticmethod
+    def get_user_by_id(db: Session, user_id: int):
+        return db.query(User).filter(
+            User.user_id == user_id
+        ).first()
+
+    @staticmethod
+    def delete_user(db: Session, user: User):
+        db.delete(user)
+        db.commit()
+
+    @staticmethod
+    def update_role(db: Session, user: User, role_id: int):
+        user.role_id = role_id
+        db.commit()
+        db.refresh(user)
+        return user
