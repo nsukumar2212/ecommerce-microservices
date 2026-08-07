@@ -17,8 +17,16 @@ class UserLogin(BaseModel):
     password: str
 
 
+class UserUpdate(BaseModel):
+    full_name: str
+    phone: str
+
+
 class UserResponse(UserBase):
     user_id: int
     role_id: int
 
     model_config = ConfigDict(from_attributes=True)
+class ChangePassword(BaseModel):
+    current_password: str
+    new_password: str

@@ -22,3 +22,11 @@ class UserCRUD:
     @staticmethod
     def get_all_users(db: Session):
         return db.query(User).all()
+
+    @staticmethod
+    def update_user(db: Session, user: User):
+
+        db.commit()
+        db.refresh(user)
+
+        return user
