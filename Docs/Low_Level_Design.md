@@ -580,3 +580,110 @@ docs/
 ├── High_Level_Design.md
 ├── Database_Design.md
 └── Low_Level_Design.md
+
+# Low Level Design
+
+## User Service
+
+Architecture
+
+Router
+↓
+Service
+↓
+CRUD
+↓
+SQLAlchemy Model
+↓
+MySQL
+
+---
+
+Authentication Flow
+
+Client
+
+↓
+
+Register
+
+↓
+
+Password Hashing (bcrypt)
+
+↓
+
+MySQL
+
+---
+
+Login
+
+↓
+
+Verify Password
+
+↓
+
+JWT Generation
+
+↓
+
+Return Token
+
+---
+
+Protected APIs
+
+JWT
+
+↓
+
+Verify Token
+
+↓
+
+Current User
+
+↓
+
+Business Logic
+
+↓
+
+Response
+
+---
+
+Implemented APIs
+
+Authentication
+
+- POST /auth/register
+- POST /auth/login
+
+Profile
+
+- GET /users/me
+- PUT /users/me
+- PUT /users/change-password
+
+Address
+
+- POST /users/address
+- GET /users/address
+- PUT /users/address/{id}
+- DELETE /users/address/{id}
+
+Admin
+
+- GET /admin/users
+- GET /admin/users/{id}
+- PUT /admin/users/{id}/role
+- DELETE /admin/users/{id}
+
+Security
+
+- JWT Authentication
+- Password Hashing
+- RBAC

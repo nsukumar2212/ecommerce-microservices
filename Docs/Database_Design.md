@@ -230,3 +230,61 @@ updated_at
 created_by
 
 updated_by
+
+# Database Design
+
+## User Service
+
+### Tables
+
+### Roles
+
+| Column    | Type        | Constraints        |
+| --------- | ----------- | ------------------ |
+| role_id   | INT         | PK, AUTO_INCREMENT |
+| role_name | VARCHAR(50) | UNIQUE             |
+
+---
+
+### Users
+
+| Column     | Type         | Constraints               |
+| ---------- | ------------ | ------------------------- |
+| user_id    | INT          | PK, AUTO_INCREMENT        |
+| full_name  | VARCHAR(100) | NOT NULL                  |
+| email      | VARCHAR(100) | UNIQUE                    |
+| password   | VARCHAR(255) | NOT NULL                  |
+| phone      | VARCHAR(20)  | UNIQUE                    |
+| role_id    | INT          | FK → Roles                |
+| created_at | TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP |
+
+---
+
+### Addresses
+
+| Column       | Type         | Constraints               |
+| ------------ | ------------ | ------------------------- |
+| address_id   | INT          | PK                        |
+| user_id      | INT          | FK → Users                |
+| address_line | VARCHAR(255) | NOT NULL                  |
+| city         | VARCHAR(100) | NOT NULL                  |
+| state        | VARCHAR(100) | NOT NULL                  |
+| pincode      | VARCHAR(20)  | NOT NULL                  |
+| country      | VARCHAR(100) | NOT NULL                  |
+| created_at   | TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP |
+
+---
+
+## Relationships
+
+Users (1)
+│
+│
+├─────────────── (Many)
+Addresses
+
+Roles (1)
+│
+│
+├─────────────── (Many)
+Users
