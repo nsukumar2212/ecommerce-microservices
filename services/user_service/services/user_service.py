@@ -74,6 +74,7 @@ class UserService:
         access_token = create_access_token(
             {
                 "sub": user.email,
+                "user_id": user.user_id,
                 "role": user.role_id
             }
         )

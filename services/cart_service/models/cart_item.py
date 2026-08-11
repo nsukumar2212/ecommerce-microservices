@@ -1,9 +1,4 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    ForeignKey
-)
-
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
 from services.cart_service.database import Base
@@ -21,7 +16,7 @@ class CartItem(Base):
 
     cart_id = Column(
         Integer,
-        ForeignKey("cart.cart_id"),
+        ForeignKey("cart.cart_id", ondelete="CASCADE"),
         nullable=False
     )
 
