@@ -1,4 +1,5 @@
 "# Scalable-E-Commerce-Platform-Using-Microservices-Architecture" 
+<<<<<<< HEAD
 # Scalable E-Commerce Platform
 
 A scalable microservices-based e-commerce application built using FastAPI, MySQL, React, and AWS.
@@ -117,3 +118,20 @@ uvicorn services.user_service.main:app --reload --port 8001
 Swagger
 
 http://127.0.0.1:8001/docs
+=======
+"# React" 
+
+
+# Scalable E-Commerce Platform
+
+Microservices Architecture
+
+Frontend:
+React
+
+Backend:
+FastAPI
+
+Database:
+MySQL
+>>>>>>> origin/main

@@ -1,0 +1,65 @@
+1. User Service
+
+Open Terminal 1:
+
+cd D:\Desktop\Scalable-Ecommerce-Platform
+backend_env\Scripts\activate
+uvicorn services.user_service.main:app --reload --port 8001
+
+Swagger:
+
+http://127.0.0.1:8001/docs
+
+
+2. Product Service
+
+Open Terminal 2:
+
+cd D:\Desktop\Scalable-Ecommerce-Platform
+backend_env\Scripts\activate
+uvicorn services.product_service.main:app --reload --port 8002
+
+Swagger:
+
+http://127.0.0.1:8002/docs
+3. Cart Service
+
+Open Terminal 3:
+
+cd D:\Desktop\Scalable-Ecommerce-Platform
+backend_env\Scripts\activate
+uvicorn services.cart_service.main:app --reload --port 8003
+
+Swagger:
+
+http://127.0.0.1:8003/docs
+Your current setup
+┌─────────────────────────────┐
+│       User Service          │
+│         Port 8001           │
+│         user_db             │
+└──────────────┬──────────────┘
+               │ JWT
+               ▼
+┌─────────────────────────────┐
+│      Product Service        │
+│         Port 8002           │
+│        product_db           │
+└──────────────┬──────────────┘
+               │ product validation
+               ▼
+┌─────────────────────────────┐
+│        Cart Service         │
+│         Port 8003           │
+│          cart_db            │
+└─────────────────────────────┘
+
+
+
+backend_env\Scripts\activate
+uvicorn services.order_service.main:app --reload --port 8004
+
+
+cd D:\Desktop\Scalable-Ecommerce-Platform
+backend_env\Scripts\activate
+uvicorn services.payment_service.main:app --reload --port 8005

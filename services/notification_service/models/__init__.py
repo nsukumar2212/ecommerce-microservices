@@ -1,0 +1,1 @@
+from services.notification_service.models.notification import Notification

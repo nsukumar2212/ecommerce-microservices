@@ -14,12 +14,18 @@ from services.order_service.models.order import Order
 from services.order_service.models.order_item import OrderItem
 
 
+# --------------------------------
 # Load Order Service .env
+# --------------------------------
+
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path)
 
 
+# --------------------------------
 # Service URLs
+# --------------------------------
+
 CART_SERVICE_URL = os.getenv(
     "CART_SERVICE_URL",
     "http://127.0.0.1:8003"
@@ -33,10 +39,15 @@ PRODUCT_SERVICE_URL = os.getenv(
 
 class OrderService:
 
+    # --------------------------------
+    # Create Order
+    # --------------------------------
+
     @staticmethod
     def create_order(
         db: Session,
-        user_id: int
+        user_id: int,
+        authorization: str
     ):
 
         # --------------------------------
@@ -45,7 +56,10 @@ class OrderService:
 
         try:
             response = httpx.get(
-                f"{CART_SERVICE_URL}/api/v1/cart/items"
+                f"{CART_SERVICE_URL}/api/v1/cart/items",
+                headers={
+                    "Authorization": authorization
+                }
             )
 
         except httpx.RequestError:
@@ -53,6 +67,10 @@ class OrderService:
                 status_code=503,
                 detail="Cart Service unavailable"
             )
+
+        # --------------------------------
+        # Check Cart Service response
+        # --------------------------------
 
         if response.status_code != 200:
             raise HTTPException(
@@ -100,12 +118,14 @@ class OrderService:
                     detail="Product Service unavailable"
                 )
 
+            # Product not found
             if response.status_code == 404:
                 raise HTTPException(
                     status_code=404,
                     detail=f"Product {product_id} not found"
                 )
 
+            # Other Product Service errors
             if response.status_code != 200:
                 raise HTTPException(
                     status_code=503,
@@ -113,6 +133,10 @@ class OrderService:
                 )
 
             product = response.json()
+
+            # --------------------------------
+            # Get product price
+            # --------------------------------
 
             price = Decimal(
                 str(product["price"])
@@ -171,6 +195,10 @@ class OrderService:
         )
 
 
+    # --------------------------------
+    # Get Single Order
+    # --------------------------------
+
     @staticmethod
     def get_order(
         db: Session,
@@ -189,6 +217,7 @@ class OrderService:
                 detail="Order not found"
             )
 
+        # Make sure user owns the order
         if order.user_id != user_id:
             raise HTTPException(
                 status_code=403,
@@ -197,6 +226,10 @@ class OrderService:
 
         return order
 
+
+    # --------------------------------
+    # Get Current User's Orders
+    # --------------------------------
 
     @staticmethod
     def get_my_orders(
