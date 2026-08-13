@@ -1,11 +1,10 @@
-import Checkout from './pages/Checkout'
-import Cart from './pages/Cart'
-import ProductDetails from './pages/ProductDetails'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import Products from './pages/Products'
+import Checkout from "./pages/Checkout";
+import Cart from "./pages/Cart";
+import ProductDetails from "./pages/ProductDetails";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
 
 function App() {
   return (
@@ -13,34 +12,22 @@ function App() {
       <Navbar />
 
       <Routes>
-  <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
 
-  <Route
-    path="/products"
-    element={<Products />}
-  />
+        <Route path="/products" element={<Products />} />
 
-  <Route
-    path="/products/:id"
-    element={<ProductDetails />}
-  />
+        <Route path="/products/:id" element={<ProductDetails />} />
 
-  <Route
-    path="/cart"
-    element={<Cart />}
-  />
+        <Route path="/cart" element={<Cart />} />
 
-  <Route
-    path="/checkout"
-    element={<Checkout />}
-  />
-</Routes>
+        <Route path="/checkout" element={<Checkout />} />
+      </Routes>
 
       <footer>
         <p>© 2026 Electronics Store</p>
       </footer>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
