@@ -1,3 +1,5 @@
+import Register from './pages/Register'
+import Login from './pages/Login'
 import Checkout from './pages/Checkout'
 import Cart from './pages/Cart'
 import ProductDetails from './pages/ProductDetails'
@@ -34,6 +36,15 @@ function App() {
     path="/checkout"
     element={<Checkout />}
   />
+  <Route
+  path="/login"
+  element={<Login />}
+/>
+<Route
+  path="/register"
+  element={<Register />}
+/>
+
 </Routes>
 
       <footer>
