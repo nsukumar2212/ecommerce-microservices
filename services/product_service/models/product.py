@@ -12,7 +12,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from services.product_service.database import Base
-
+from services.product_service.models.category import Category
 
 class Product(Base):
     __tablename__ = "products"
@@ -27,8 +27,7 @@ class Product(Base):
 
     description = Column(Text)
 
-    image = Column(String(255))
-
+    image = Column(Text)
     stock = Column(Integer, nullable=False)
 
     category_id = Column(
