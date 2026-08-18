@@ -1,4 +1,11 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, TIMESTAMP
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    ForeignKey,
+    TIMESTAMP,
+    Boolean
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
@@ -17,6 +24,9 @@ class User(Base):
     password = Column(String(255), nullable=False)
 
     phone = Column(String(15), unique=True, nullable=False)
+    email_verified = Column(Boolean,default=False,nullable=False)
+
+    phone_verified = Column(Boolean,default=False,nullable=False)
 
     role_id = Column(Integer, ForeignKey("roles.role_id"), nullable=False)
 

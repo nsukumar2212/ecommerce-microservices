@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Depends
+import random
+from services.user_service.services.otp_service import OTPService
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
+from services.user_service.services.otp_service import OTPService
 from services.user_service.database import get_db
 from services.user_service.schemas.auth_schema import (
     LoginRequest,
@@ -39,3 +41,16 @@ def login(
     db: Session = Depends(get_db)
 ):
     return UserService.login(db, request)
+@router.post("/test-email-otp")
+def test_email_otp(email: str):
+
+    otp = OTPService.generate_otp()
+
+    OTPService.send_email_otp(
+        email,
+        otp
+    )
+
+    return {
+        "message": "OTP sent successfully"
+    }
