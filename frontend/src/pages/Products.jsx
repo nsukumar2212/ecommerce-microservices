@@ -1,17 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'
 import SearchBar from '../components/SearchBar'
 import CategoryFilter from '../components/CategoryFilter'
 import products from '../utils/products'
+import { useSearchParams } from 'react-router-dom'
 
 function Products() {
+  const [searchParams] = useSearchParams()
+
+  const categoryFromUrl =
+    searchParams.get('category') || 'All'
+
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [selectedCategory, setSelectedCategory] =
+    useState(categoryFromUrl)
+
+  useEffect(() => {
+    setSelectedCategory(categoryFromUrl)
+  }, [categoryFromUrl])
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch =
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.brand.toLowerCase().includes(searchTerm.toLowerCase())
+      product.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      product.brand
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
 
     const matchesCategory =
       selectedCategory === 'All' ||

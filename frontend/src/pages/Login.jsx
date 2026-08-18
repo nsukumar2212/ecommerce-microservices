@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 function Login() {
@@ -43,6 +44,12 @@ function Login() {
             required
           />
 
+          <div className="forgot-password">
+            <Link to="/forgot-password">
+              Forgot Password?
+            </Link>
+          </div>
+
           <button type="submit">
             Login
           </button>
@@ -50,7 +57,9 @@ function Login() {
 
         <p className="register-link">
           Don't have an account?{' '}
-          <a href="/register">Create Account</a>
+          <Link to="/register">
+            Create Account
+          </Link>
         </p>
       </div>
     </main>

@@ -1,3 +1,11 @@
+import OrderSuccess from './pages/OrderSuccess'
+import OrderDetails from './pages/OrderDetails'
+import Wishlist from './pages/Wishlist'
+import Orders from './pages/Orders'
+import Profile from './pages/Profile'
+import Notifications from './pages/Notifications'
+import Payment from './pages/Payment'
+import ForgotPassword from './pages/ForgotPassword'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Checkout from './pages/Checkout'
@@ -44,7 +52,38 @@ function App() {
   path="/register"
   element={<Register />}
 />
-
+<Route
+  path="/forgot-password"
+  element={<ForgotPassword />}
+/>
+<Route
+  path="/payment"
+  element={<Payment />}
+/>
+<Route
+  path="/notifications"
+  element={<Notifications />}
+/>
+<Route
+  path="/profile"
+  element={<Profile />}
+/>
+<Route
+  path="/orders"
+  element={<Orders />}
+/>
+<Route
+  path="/wishlist"
+  element={<Wishlist />}
+/>
+<Route
+  path="/orders/:orderId"
+  element={<OrderDetails />}
+/>
+<Route
+  path="/order-success"
+  element={<OrderSuccess />}
+/>
 </Routes>
 
       <footer>

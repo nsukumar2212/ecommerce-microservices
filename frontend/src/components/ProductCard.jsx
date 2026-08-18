@@ -1,8 +1,34 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { useWishlist } from '../context/WishlistContext'
 
 function ProductCard({ product }) {
-  const { addToCart } = useCart()
+  const {
+    cartItems,
+    addToCart,
+    increaseQuantity,
+    decreaseQuantity
+  } = useCart()
+
+  const {
+    addToWishlist,
+    removeFromWishlist,
+    isInWishlist
+  } = useWishlist()
+
+  const wishlist = isInWishlist(product.id)
+
+  const cartItem = cartItems.find(
+    (item) => item.id === product.id
+  )
+
+  function handleWishlist() {
+    if (wishlist) {
+      removeFromWishlist(product.id)
+    } else {
+      addToWishlist(product)
+    }
+  }
 
   return (
     <div className="product-card">
@@ -12,6 +38,16 @@ function ProductCard({ product }) {
           alt={product.name}
           className="product-image"
         />
+
+        <button
+          className={`wishlist-button ${
+            wishlist ? 'wishlist-active' : ''
+          }`}
+          onClick={handleWishlist}
+          aria-label="Add to wishlist"
+        >
+          {wishlist ? '♥' : '♡'}
+        </button>
       </div>
 
       <div className="product-info">
@@ -37,12 +73,34 @@ function ProductCard({ product }) {
             View Details
           </Link>
 
-          <button
-            onClick={() => addToCart(product)}
-            className="add-cart-button"
-          >
-            Add to Cart
-          </button>
+          {cartItem ? (
+            <div className="product-quantity-controls">
+              <button
+                onClick={() =>
+                  decreaseQuantity(product.id)
+                }
+              >
+                −
+              </button>
+
+              <span>{cartItem.quantity}</span>
+
+              <button
+                onClick={() =>
+                  increaseQuantity(product.id)
+                }
+              >
+                +
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => addToCart(product)}
+              className="add-cart-button"
+            >
+              Add to Cart
+            </button>
+          )}
         </div>
       </div>
     </div>

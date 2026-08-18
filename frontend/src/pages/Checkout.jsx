@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 
 function Checkout() {
@@ -73,9 +74,13 @@ function Checkout() {
           Total: ₹{total.toLocaleString('en-IN')}
         </h3>
 
-        <button>
-          Proceed to Payment
-        </button>
+        <Link
+  to="/payment"
+  className="proceed-payment-button"
+>
+  Proceed to Payment
+</Link>
+
       </section>
     </main>
   )

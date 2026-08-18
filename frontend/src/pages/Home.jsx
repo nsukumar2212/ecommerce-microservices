@@ -26,6 +26,7 @@ function Home() {
 
   return (
     <main>
+
       {/* Hero Section */}
 
       <section className="hero">
@@ -36,7 +37,10 @@ function Home() {
           headphones, tablets, and more.
         </p>
 
-        <Link to="/products" className="shop-now-button">
+        <Link
+          to="/products"
+          className="shop-now-button"
+        >
           Shop Now
         </Link>
       </section>
@@ -65,7 +69,7 @@ function Home() {
           {categories.map((category) => (
             <Link
               key={category.name}
-              to="/products"
+              to={`/products?category=${encodeURIComponent(category.name)}`}
               className="category-card"
             >
               <h3>{category.name}</h3>
@@ -82,6 +86,7 @@ function Home() {
         <h2>Why Choose Us?</h2>
 
         <div className="why-us-list">
+
           <div className="why-us-card">
             <h3>🚚 Fast Delivery</h3>
             <p>Get your products delivered quickly.</p>
@@ -96,8 +101,10 @@ function Home() {
             <h3>⭐ Quality Products</h3>
             <p>Shop reliable and quality electronics.</p>
           </div>
+
         </div>
       </section>
+
     </main>
   )
 }
