@@ -4,8 +4,7 @@ from services.product_service.database import SessionLocal
 from services.product_service.models.product import Product
 
 
-CSV_FILE = "data/products_cleaned.csv"
-
+CSV_FILE = "data/products_small.csv"
 
 # Correct category IDs from your database
 CATEGORY_MAP = {

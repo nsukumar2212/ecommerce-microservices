@@ -1,31 +1,26 @@
-function CategoryFilter({ selectedCategory, setSelectedCategory }) {
-  const categories = [
-    'All',
-    'Smartphones',
-    'Laptops',
-    'Headphones',
-    'Tablets',
-    'Televisions',
-    'Speakers'
-  ]
-
+function CategoryFilter({ selectedCategory, setSelectedCategory, categories }) {
   return (
     <div className="category-filter">
+      <button
+        onClick={() => setSelectedCategory("All")}
+        className={selectedCategory === "All" ? "active-category" : ""}
+      >
+        All
+      </button>
+
       {categories.map((category) => (
         <button
-          key={category}
-          onClick={() => setSelectedCategory(category)}
+          key={category.category_id}
+          onClick={() => setSelectedCategory(category.category_name)}
           className={
-            selectedCategory === category
-              ? 'active-category'
-              : ''
+            selectedCategory === category.category_name ? "active-category" : ""
           }
         >
-          {category}
+          {category.category_name}
         </button>
       ))}
     </div>
-  )
+  );
 }
 
-export default CategoryFilter
+export default CategoryFilter;
