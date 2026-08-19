@@ -1,133 +1,65 @@
-import { useCart } from '../context/CartContext'
-import { useWishlist } from '../context/WishlistContext'
-import { useParams } from 'react-router-dom'
-import products from '../utils/products'
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../services/productApi";
 
 function ProductDetails() {
-  const { id } = useParams()
+  const { id } = useParams();
 
-  const {
-    cartItems,
-    addToCart,
-    increaseQuantity,
-    decreaseQuantity
-  } = useCart()
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const {
-    addToWishlist,
-    removeFromWishlist,
-    isInWishlist
-  } = useWishlist()
+  useEffect(() => {
+    async function loadProduct() {
+      try {
+        const data = await getProductById(id);
 
-  const product = products.find(
-    (product) => product.id === Number(id)
-  )
+        setProduct(data);
+      } catch (error) {
+        console.error(error);
 
-  if (!product) {
-    return (
-      <main className="product-not-found">
-        <h2>Product Not Found</h2>
+        setError("Unable to load product");
+      } finally {
+        setLoading(false);
+      }
+    }
 
-        <p>
-          The product you're looking for doesn't exist.
-        </p>
-      </main>
-    )
+    loadProduct();
+  }, [id]);
+
+  if (loading) {
+    return <h2>Loading product...</h2>;
   }
 
-  const cartItem = cartItems.find(
-    (item) => item.id === product.id
-  )
+  if (error) {
+    return <h2>{error}</h2>;
+  }
 
-  const wishlist = isInWishlist(product.id)
-
-  function handleWishlist() {
-    if (wishlist) {
-      removeFromWishlist(product.id)
-    } else {
-      addToWishlist(product)
-    }
+  if (!product) {
+    return <h2>Product not found</h2>;
   }
 
   return (
     <main className="product-details">
       <div className="product-details-image">
-        <img
-          src={product.image}
-          alt={product.name}
-        />
+        <img src={product.image} alt={product.product_name} />
       </div>
 
       <div className="product-details-info">
-        <p className="product-details-category">
-          {product.category}
-        </p>
+        <h1>{product.product_name}</h1>
 
-        <h2>{product.name}</h2>
+        <p>Brand: {product.brand}</p>
 
-        <p className="product-details-brand">
-          Brand: {product.brand}
-        </p>
+        <h2>₹{product.price}</h2>
 
-        <p className="product-details-price">
-          ₹{product.price.toLocaleString('en-IN')}
-        </p>
+        <p>Stock available: {product.stock}</p>
 
-        <p className="product-details-description">
-          This is a high-quality {product.name}
-          from {product.brand}.
-        </p>
+        {product.description && <p>{product.description}</p>}
 
-        <p className="product-details-stock">
-          ✓ In Stock
-        </p>
-
-        <div className="product-details-actions">
-
-          {cartItem ? (
-            <div className="product-details-quantity-controls">
-              <button
-                onClick={() =>
-                  decreaseQuantity(product.id)
-                }
-              >
-                −
-              </button>
-
-              <span>{cartItem.quantity}</span>
-
-              <button
-                onClick={() =>
-                  increaseQuantity(product.id)
-                }
-              >
-                +
-              </button>
-            </div>
-          ) : (
-            <button
-              className="product-details-cart-button"
-              onClick={() => addToCart(product)}
-            >
-              Add to Cart
-            </button>
-          )}
-
-          <button
-            className={`product-details-wishlist-button ${
-              wishlist ? 'active' : ''
-            }`}
-            onClick={handleWishlist}
-          >
-            {wishlist
-              ? '♥ Remove from Wishlist'
-              : '♡ Add to Wishlist'}
-          </button>
-
-        </div>
+        <button>Add to Cart</button>
       </div>
     </main>
-  )
+  );
 }
 
-export default ProductDetails
+export default ProductDetails;
